@@ -1,1 +1,1 @@
-angular.module('notification', [])
+angular.module('notification', ['ngAnimate'])

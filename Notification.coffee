@@ -14,7 +14,6 @@ factory('notification', ($timeout) ->
         type:     type
         time:     new Date().getTime()
 
-      # If there are two alert delete the last one
       if this.alerts.length == 2
         this.alerts.pop()
 
@@ -24,11 +23,11 @@ factory('notification', ($timeout) ->
           this.alerts.splice(i,1)
           break
 
-      # at to the begining the alert
       this.alerts.unshift(add)
-
-      # Delete automaticaly the alert
       this.autoDelete()
+
+      if this.overlay
+        this.displayOverlay()
 
     autoDelete: ->
       _this = this
