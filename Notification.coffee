@@ -36,10 +36,6 @@ factory('notification', ($interval) ->
           break
 
       this.alerts.unshift(add)
-      this.autoDelete()
-
-      if this.overlay
-        this.displayOverlay()
 
     closeAlert: (index) ->
       this.alerts.splice(index, 1)
