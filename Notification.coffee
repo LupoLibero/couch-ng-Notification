@@ -1,20 +1,32 @@
 angular.module('notification').
-factory('notification', ($timeout) ->
-  return {
+factory('notification', ($interval) ->
+  notification = {
     alerts: []
-    displayTime: 5000
+    displayTimeLong:  15000
+    displayTimeShort: 5000
+    maxAlert: 2
+
+    setDisplayTimeLong: (max) ->
+      this.maxAlert = max
+
+    setDisplayTimeLong: (time) ->
+      this.displayTimeLong = time * 1000
+
+    setDisplayTimeShort: (time) ->
+      this.displayTimeShort = time * 1000
 
     setAlert: (message, type)->
       this.alerts = []
       this.addAlert(message, type)
 
-    addAlert: (message, type) ->
+    addAlert: (message, type, display = 'short') ->
       add=
         message:  message
         type:     type
         time:     new Date().getTime()
+        display:  display
 
-      if this.alerts.length == 2
+      if this.alerts.length == this.maxAlert
         this.alerts.pop()
 
       # If the alert is already display delete it
@@ -29,16 +41,16 @@ factory('notification', ($timeout) ->
       if this.overlay
         this.displayOverlay()
 
-    autoDelete: ->
-      _this = this
-      $timeout( ->
-        for alert, i in _this.alerts
-          timespend = new Date().getTime() - alert.time
-          if timespend >= _this.displayTime
-            _this.alerts.splice(i,1)
-      , _this.displayTime)
-
     closeAlert: (index) ->
       this.alerts.splice(index, 1)
   }
+
+  $interval( ->
+    for alert, i in notification.alerts
+      timespend = new Date().getTime() - alert.time
+      if timespend >= (if alert.display == 'short' then notification.displayTimeShort else notification.displayTimeLong)
+        notification.closeAlert(i)
+  , 500)
+
+  return notification
 )
