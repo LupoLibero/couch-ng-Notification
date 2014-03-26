@@ -6,15 +6,16 @@ run( (notification, Notif, $interval, login)->
         startkey: ["", login.getName()]
         endkey:   [{}, login.getName()]
       }).then(
-        (data) -> #Success
-          notification.addAlert(data.message, 'info', 'long')
-          Notif.update({
-            update: 'displayed'
+        (datas) -> #Success
+          for data in datas
+            notification.addAlert(data.message, 'info', 'long')
+            Notif.update({
+              update: 'displayed'
 
-           _id: data._id
-          })
-        ,(err) -> #Error
-          console.log err
+            _id: data._id
+            })
+          ,(err) -> #Error
+            console.log err
       )
     , 2000)
 )
