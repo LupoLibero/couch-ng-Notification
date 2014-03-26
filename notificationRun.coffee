@@ -14,8 +14,8 @@ run( (notification, Notif, $interval, login)->
 
             _id: data._id
             })
-          ,(err) -> #Error
-            console.log err
-      )
-    , 2000)
+        ,(err) -> #Error
+          console.log err
+    )
+  , 2000)
 )
