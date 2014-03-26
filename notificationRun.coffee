@@ -17,5 +17,5 @@ run( (notification, Notif, $interval, login)->
         ,(err) -> #Error
           console.log err
     )
-  , 2000)
+  , 30000)
 )
