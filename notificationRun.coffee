@@ -1,21 +1,26 @@
 angular.module('notification').
-run( (notification, Notif, $interval, login)->
-  $interval( ->
+run( (notification, Notif, longPolling, $rootScope, login)->
+  $rootScope.$on('SessionChanged', ->
+    console.log "sessionchange notification"
     if login.isConnect()
-      Notif.all({
-        startkey: ["", login.getName()]
-        endkey:   [{}, login.getName()]
-      }).then(
-        (datas) -> #Success
-          for data in datas
-            notification.addAlert(data.message, 'info', 'long')
-            Notif.update({
-              update: 'displayed'
+      longPolling.start('notifications', {
+        user: login.getName()
+      })
+    else
+      longPolling.stop()
+  )
 
-            _id: data._id
-            })
-        ,(err) -> #Error
-          console.log err
+  $rootScope.$on('ChangesOnNotifications', ($event, _id) ->
+    Notif.get({
+      view: 'all'
+      _id: _id
+    }).then(
+      (data) -> #Success
+        notification.addAlert(data.message, 'info', 'long')
+        Notif.update({
+          update: 'displayed'
+          _id: _id
+        })
     )
-  , 30000)
+  )
 )

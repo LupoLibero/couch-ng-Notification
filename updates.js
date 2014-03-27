@@ -1,4 +1,4 @@
-exports.card_create = function(doc, req) {
+exports.notification_displayed = function(doc, req) {
   var attr;
   var form = JSON.parse(req.body);
   if(doc === null){

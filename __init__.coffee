@@ -1,1 +1,1 @@
-angular.module('notification', ['ngAnimate'])
+angular.module('notification', ['ngAnimate', 'longpolling'])
