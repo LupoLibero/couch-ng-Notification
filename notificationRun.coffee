@@ -1,7 +1,6 @@
 angular.module('notification').
 run( (notification, Notif, longPolling, $rootScope, login)->
   $rootScope.$on('SessionChanged', ->
-    console.log "sessionchange notification"
     if login.isConnect()
       longPolling.start('notifications', {
         user: login.getName()
