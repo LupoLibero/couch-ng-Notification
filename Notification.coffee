@@ -1,5 +1,5 @@
 angular.module('notification').
-factory('notification', ($interval) ->
+factory('notification', ($filter, $interval) ->
   notification = {
     alerts: []
     displayTimeLong:  15000
@@ -21,7 +21,7 @@ factory('notification', ($interval) ->
 
     addAlert: (message, type, display = 'short') ->
       add=
-        message:  message
+        message:  $filter('translate')(message)
         type:     type
         time:     new Date().getTime()
         display:  display
