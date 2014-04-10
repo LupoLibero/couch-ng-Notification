@@ -1,15 +1,10 @@
 angular.module('notification').
-run( (notification, Notif, $rootScope, login)->
-  # $rootScope.$on('SessionChanged', ->
-  #   if login.isConnect()
-  #     longPolling.start('notifications', {
-  #       user: login.getName()
-  #     })
-  #   else
-  #     longPolling.stop()
-  # )
+run( (notification, Notif, socket, $rootScope)->
+  $rootScope.$on('SessionChange', ($event, name) ->
+    socket.emit('setUsername', name)
+  )
 
-  $rootScope.$on('ChangesOnNotifications', ($event, _id) ->
+  socket.on('notification', (_id) ->
     Notif.get({
       view: 'all'
       _id: _id
