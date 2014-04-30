@@ -14,10 +14,10 @@ exports.notification = new Type('notification', {
     message_txt: fields.string({
       require: false
     }),
-    message_html: fields.string(
+    message_html: fields.string({
       require: false
     }),
-    subject: fields.string(
+    subject: fields.string({
       require: false
     }),
     created_at: fields.createdTime(),
