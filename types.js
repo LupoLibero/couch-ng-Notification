@@ -1,6 +1,7 @@
 var Type        = require('couchtypes/types').Type;
 var fields      = require('couchtypes/fields');
 var permissions = require('couchtypes/permissions');
+var idField     = require('../ITS/fields').idField;
 
 
 exports.notification = new Type('notification', {
@@ -10,6 +11,7 @@ exports.notification = new Type('notification', {
     remove: permissions.hasRole('notification_manager')
   },
   fields: {
+    id: idField(/\d+\-<subscriber>/),
     subscriber: fields.string(),
     message_txt: fields.string({
       require: false

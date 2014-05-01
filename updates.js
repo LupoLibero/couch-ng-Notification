@@ -23,7 +23,8 @@ exports.notification_send = function(doc, req) {
 exports.notification_create = function(doc, req) {
   var form = JSON.parse(req.body);
   if(doc===null){
-    form._id        = form.id
+    form._id        = 'notification:' + form.id;
+    form.type       = 'notification';
     form.created_at = new Date().getTime();
     form.displayed  = false;
     form.email_sent = false;
