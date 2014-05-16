@@ -11,7 +11,7 @@ directive('notificationOverlay', (notification) ->
         "position": "fixed"
         "top": "60px"
         "right": "40px"
-        "zIndex": "9999"
+        "zIndex": "99999999999"
         "width": "300px"
       })
       scope.notifs = notification
