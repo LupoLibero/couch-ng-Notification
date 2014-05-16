@@ -37,7 +37,7 @@ exports.notification_create = function(doc, req) {
 exports.notification_create_contact = function(doc, req) {
   var form = JSON.parse(req.body);
   if(doc===null){
-    form._id        = 'notification:' + form.id;
+    form._id        = 'notification:' + req.uuid;
     form.type       = 'notification';
     form.created_at = new Date().getTime();
     form.displayed  = false;
