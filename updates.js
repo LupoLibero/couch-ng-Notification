@@ -33,3 +33,18 @@ exports.notification_create = function(doc, req) {
     throw({forbidden: 'Not for update'});
   }
 }
+
+exports.notification_create_contact = function(doc, req) {
+  var form = JSON.parse(req.body);
+  if(doc===null){
+    form._id        = 'notification:' + form.id;
+    form.type       = 'notification';
+    form.created_at = new Date().getTime();
+    form.displayed  = false;
+    form.email_sent = false;
+    form.to         = 'ton-mail-ici';
+    return ([form, 'ok']);
+  } else {
+    throw({forbidden: 'Not for update'});
+  }
+}
