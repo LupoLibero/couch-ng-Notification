@@ -1,4 +1,4 @@
 angular.module('notification').
 factory('Notif', (CouchDB, db)->
-  return CouchDB(db.url, db.name, 'notification')
+  return CouchDB(db.main.url, db.main.appName, 'notification')
 )
