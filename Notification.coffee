@@ -15,9 +15,9 @@ factory('notification', ($filter, $interval) ->
     setDisplayTimeShort: (time) ->
       this.displayTimeShort = time * 1000
 
-    setAlert: (message, type)->
+    setAlert: (message, type, display = 'short')->
       this.alerts = []
-      this.addAlert(message, type)
+      this.addAlert(message, type, display)
 
     addAlert: (message, type, display = 'short') ->
       add=
